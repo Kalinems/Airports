@@ -1,4 +1,3 @@
-
 package local.kaline.airports.controllers;
 
 import java.util.List;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
+ * Controller de Airports - Implementa os endpoints de Airport
  * @author ppjata
  */
 @RestController

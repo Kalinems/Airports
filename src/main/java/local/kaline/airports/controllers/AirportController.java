@@ -1,6 +1,7 @@
 package local.kaline.airports.controllers;
 
 import java.util.List;
+import local.kaline.airports.DTO.AirportMinDTO;
 import local.kaline.airports.entities.Airport;
 import local.kaline.airports.service.AirportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,20 @@ public class AirportController {
         }
     }
     
-
+    @GetMapping("/country/{countryName}")
+    public ResponseEntity<List<AirportMinDTO>> findByCountryIgnoreCase(@PathVariable String countryName) {
+        
+        List<AirportMinDTO> result = airportService.findByCountry(countryName);
+        if (result.isEmpty()) {
+            //Ops lista vazia...
+            //notFound devolve 404
+            return ResponseEntity.notFound().build();
+        
+        } else {
+            //Eba! Tem dados!
+            //ok devolve 200
+            return ResponseEntity.ok(result);
+        }
+    }
 
 }

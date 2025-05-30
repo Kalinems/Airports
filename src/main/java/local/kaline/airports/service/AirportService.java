@@ -3,7 +3,9 @@ package local.kaline.airports.service;
 
 import java.util.List;
 import local.kaline.airports.DTO.AirportMinDTO;
+import local.kaline.airports.DTO.AirportNearMeDTO;
 import local.kaline.airports.entities.Airport;
+import local.kaline.airports.projections.AirportNearMeProjection;
 import local.kaline.airports.repositories.AirportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,6 +61,23 @@ public class AirportService {
     public Airport findByIataCode(String iataCode) {
         Airport result = airportRepository.findByIataCode(iataCode);
         return result;
+    }
+    
+    /**
+     * Retorna DTO AirportNearMe
+     * 
+     * @param latitude
+     * @param longitude
+     * @return
+     */
+    
+    public List<AirportNearMeDTO> findNearMe(double latitude, double longitude) {
+        List<AirportNearMeProjection> resultNearAirports = airportRepository.findNearMe(latitude, longitude);
+        
+        List<AirportNearMeDTO> resultDTO = resultNearAirports.stream()
+                .map(x -> new AirportNearMeDTO(x)).toList();
+        
+        return resultDTO;
     }
 }
 
